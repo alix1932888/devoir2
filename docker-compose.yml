@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=3zae1a2ff
+      - POSTGRES_USER=postgres
+
+  manager:
+    image: python:latest
+    build: .
+    depends_on:
+      - db
+    working_dir: /usr/app
+    environment:
+      - CSV_FILENAME=data.csv
+      - POSTGRES_PASSWORD=3zae1a2ff
+      - POSTGRES_USER=postgres
+    command: python3 -m manager
